@@ -21,3 +21,11 @@ $tmp_edgecos = snmp_get_multi($device, ['swOpCodeVer.1', 'swProdName.0', 'swSeri
 $version  = trim($tmp_edgecos[1]['swHardwareVer'], '"') . ' ' . trim($tmp_edgecos[1]['swOpCodeVer'], '"');
 $hardware = trim($tmp_edgecos[0]['swProdName'], '"');
 $serial   = trim($tmp_edgecos[1]['swSerialNumber'], '"');
+
+if (starts_with($device['sysObjectID'], '.1.3.6.1.4.1.259.10.1.39.')) {
+    $hardware = trim(snmp_get($device, "1.3.6.1.2.1.47.1.1.1.1.13.101", "-OQv"), '"');
+    $serial   = trim(snmp_get($device, "1.3.6.1.2.1.47.1.1.1.1.11.101", "-OQv"), '"');
+    $swOpCodeVer = trim(snmp_get($device, "1.3.6.1.2.1.16.19.2.0", "-OQv"), '"');
+    $swHardwareVer = trim(snmp_get($device, "1.3.6.1.2.1.16.19.3.0", "-OQv"), '"');
+    $version = $swHardwareVer . ' ' . $swOpCodeVer;
+}
