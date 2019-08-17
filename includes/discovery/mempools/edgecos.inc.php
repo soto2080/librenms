@@ -46,11 +46,11 @@ if ($device['os'] == 'edgecos') {
     $percent = ($used / $total * 100);
     
     if (starts_with($device['sysObjectID'], '.1.3.6.1.4.1.259.10.1.39.')) { //ECS4110
-		$total = snmp_get($device, "1.3.6.1.4.1.259.10.1.39.1.39.3.1.0", "-OQv");
-		$used = snmp_get($device, "1.3.6.1.4.1.259.10.1.39.1.39.3.2.0", "-OQv");
-		$avail = snmp_get($device, "1.3.6.1.4.1.259.10.1.39.1.39.3.3.0", "-OQv");
-		$percent = ($used / $total * 100);
-	}
+        $total = snmp_get($device, "1.3.6.1.4.1.259.10.1.39.1.39.3.1.0", "-OQv");
+        $used = snmp_get($device, "1.3.6.1.4.1.259.10.1.39.1.39.3.2.0", "-OQv");
+        $avail = snmp_get($device, "1.3.6.1.4.1.259.10.1.39.1.39.3.3.0", "-OQv");
+        $percent = ($used / $total * 100);
+    }
     
     if ((is_numeric($total)) && (is_numeric($avail))) {
         discover_mempool($valid_mempool, $device, 0, 'edgecos', 'Memory', '1', null, null);
