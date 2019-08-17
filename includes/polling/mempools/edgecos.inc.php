@@ -38,4 +38,10 @@ $mempool['total'] = $total;
 $mempool['free'] = $avail;
 $mempool['used'] = $total - $avail;
 
+if (starts_with($device['sysObjectID'], '.1.3.6.1.4.1.259.10.1.39.')) { //ECS4110
+	$mempool['total'] = snmp_get($device, "1.3.6.1.4.1.259.10.1.39.1.39.3.1.0", "-OQv");
+	$mempool['used'] = snmp_get($device, "1.3.6.1.4.1.259.10.1.39.1.39.3.2.0", "-OQv");
+	$mempool['free'] = snmp_get($device, "1.3.6.1.4.1.259.10.1.39.1.39.3.3.0", "-OQv");
+}
+
 unset($temp_mibs, $temp_data);
